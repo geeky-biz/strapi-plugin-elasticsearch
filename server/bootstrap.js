@@ -1,12 +1,13 @@
 'use strict';
 
 module.exports = async ({ strapi }) => {
-  const pluginConfig = await strapi.config.get('plugin.elasticsearch');
-  const configureIndexingService = strapi.plugins['elasticsearch'].services.configureIndexing;
-  const scheduleIndexingService = strapi.plugins['elasticsearch'].services.scheduleIndexing;
-  const esInterface = strapi.plugins['elasticsearch'].services.esInterface;
-  const indexer = strapi.plugins['elasticsearch'].services.indexer;
-  const helper = strapi.plugins['elasticsearch'].services.helper; 
+  const pluginConfigObj = await strapi.config.get('plugin.elasticsearch');
+  const pluginConfig = Object.keys(pluginConfigObj).includes('config') ? pluginConfigObj['config'] : {}
+  const configureIndexingService = strapi.plugins['strapi-plugin-elasticsearch'].services.configureIndexing;
+  const scheduleIndexingService = strapi.plugins['strapi-plugin-elasticsearch'].services.scheduleIndexing;
+  const esInterface = strapi.plugins['strapi-plugin-elasticsearch'].services.esInterface;
+  const indexer = strapi.plugins['strapi-plugin-elasticsearch'].services.indexer;
+  const helper = strapi.plugins['strapi-plugin-elasticsearch'].services.helper; 
   try
   {
     await configureIndexingService.initializeStrapiElasticsearch();

@@ -85,7 +85,8 @@ module.exports = ({ strapi }) => ({
     },
     async attachAliasToIndex(indexName) {
       try{
-        const pluginConfig = await strapi.config.get('plugin.elasticsearch');
+        const pluginConfigObj = await strapi.config.get('plugin.elasticsearch');
+        const pluginConfig = Object.keys(pluginConfigObj).includes('config') ? pluginConfigObj['config'] : {}      
         const aliasName = pluginConfig.indexAliasName;
         const aliasExists = await client.indices.existsAlias({name: aliasName});
         console.log(aliasExists);
@@ -147,11 +148,14 @@ module.exports = ({ strapi }) => ({
       }
     },
     async indexData({itemId, itemData}) {
-      const pluginConfig = await strapi.config.get('plugin.elasticsearch');
+      const pluginConfigObj = await strapi.config.get('plugin.elasticsearch');
+      const pluginConfig = Object.keys(pluginConfigObj).includes('config') ? pluginConfigObj['config'] : {}    
       return await this.indexDataToSpecificIndex({itemId, itemData}, pluginConfig.indexAliasName);
     },
     async removeItemFromIndex({itemId}) {
-      const pluginConfig = await strapi.config.get('plugin.elasticsearch');
+      const pluginConfigObj = await strapi.config.get('plugin.elasticsearch');
+      const pluginConfig = Object.keys(pluginConfigObj).includes('config') ? pluginConfigObj['config'] : {}
+    
       try
       {
         await client.delete({
@@ -173,7 +177,9 @@ module.exports = ({ strapi }) => ({
     async searchData(searchQuery){
       try
       {
-        const pluginConfig = await strapi.config.get('plugin.elasticsearch');
+        const pluginConfigObj = await strapi.config.get('plugin.elasticsearch');
+        const pluginConfig = Object.keys(pluginConfigObj).includes('config') ? pluginConfigObj['config'] : {}
+      
         const result= await client.search({
           index: pluginConfig.indexAliasName,
           ...searchQuery

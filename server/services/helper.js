@@ -178,9 +178,11 @@ function extractSubfieldData({config, data }) {
 
 module.exports = ({ strapi }) => ({
     async getElasticsearchInfo() {
-        const configureService = strapi.plugins['elasticsearch'].services.configureIndexing;
-        const esInterface = strapi.plugins['elasticsearch'].services.esInterface;
-        const pluginConfig = await strapi.config.get('plugin.elasticsearch');
+        const configureService = strapi.plugins['strapi-plugin-elasticsearch'].services.configureIndexing;
+        const esInterface = strapi.plugins['strapi-plugin-elasticsearch'].services.esInterface;
+        const pluginConfigObj = await strapi.config.get('plugin.elasticsearch');
+        const pluginConfig = Object.keys(pluginConfigObj).includes('config') ? pluginConfigObj['config'] : {}
+      
         const connected = pluginConfig.searchConnector && pluginConfig.searchConnector.host
          ? await esInterface.checkESConnection() : false;
 

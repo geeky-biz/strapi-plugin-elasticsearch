@@ -3,7 +3,7 @@
 
 
 module.exports = ({ strapi }) => {
-  const configureIndexingService = strapi.plugins['elasticsearch'].services.configureIndexing;
+  const configureIndexingService = strapi.plugins['strapi-plugin-elasticsearch'].services.configureIndexing;
 
   const getContentConfig = async (ctx) => {
     return configureIndexingService.getContentConfig();

@@ -2,11 +2,11 @@
 module.exports = ({ strapi }) => ({
 
     async rebuildIndex() {
-        const helper = strapi.plugins['elasticsearch'].services.helper;
-        const esInterface = strapi.plugins['elasticsearch'].services.esInterface;
-        const scheduleIndexingService = strapi.plugins['elasticsearch'].services.scheduleIndexing;
-        const configureIndexingService = strapi.plugins['elasticsearch'].services.configureIndexing;
-        const logIndexingService = strapi.plugins['elasticsearch'].services.logIndexing;
+        const helper = strapi.plugins['strapi-plugin-elasticsearch'].services.helper;
+        const esInterface = strapi.plugins['strapi-plugin-elasticsearch'].services.esInterface;
+        const scheduleIndexingService = strapi.plugins['strapi-plugin-elasticsearch'].services.scheduleIndexing;
+        const configureIndexingService = strapi.plugins['strapi-plugin-elasticsearch'].services.configureIndexing;
+        const logIndexingService = strapi.plugins['strapi-plugin-elasticsearch'].services.logIndexing;
 
         try
         {
@@ -60,11 +60,11 @@ module.exports = ({ strapi }) => ({
         }
     },
     async indexCollection(collectionName, indexName = null) {
-        const helper = strapi.plugins['elasticsearch'].services.helper;
+        const helper = strapi.plugins['strapi-plugin-elasticsearch'].services.helper;
         const populateAttrib = helper.getPopulateAttribute({collectionName});
         const isCollectionDraftPublish = helper.isCollectionDraftPublish({collectionName});
-        const configureIndexingService = strapi.plugins['elasticsearch'].services.configureIndexing;
-        const esInterface = strapi.plugins['elasticsearch'].services.esInterface;
+        const configureIndexingService = strapi.plugins['strapi-plugin-elasticsearch'].services.configureIndexing;
+        const esInterface = strapi.plugins['strapi-plugin-elasticsearch'].services.esInterface;
         if (indexName === null)
             indexName = await helper.getCurrentIndexName();
         let entries = [];
@@ -103,11 +103,11 @@ module.exports = ({ strapi }) => ({
         return true;
     },
     async indexPendingData() {
-        const scheduleIndexingService = strapi.plugins['elasticsearch'].services.scheduleIndexing;
-        const configureIndexingService = strapi.plugins['elasticsearch'].services.configureIndexing;
-        const logIndexingService = strapi.plugins['elasticsearch'].services.logIndexing;
-        const esInterface = strapi.plugins['elasticsearch'].services.esInterface;
-        const helper = strapi.plugins['elasticsearch'].services.helper;
+        const scheduleIndexingService = strapi.plugins['strapi-plugin-elasticsearch'].services.scheduleIndexing;
+        const configureIndexingService = strapi.plugins['strapi-plugin-elasticsearch'].services.configureIndexing;
+        const logIndexingService = strapi.plugins['strapi-plugin-elasticsearch'].services.logIndexing;
+        const esInterface = strapi.plugins['strapi-plugin-elasticsearch'].services.esInterface;
+        const helper = strapi.plugins['strapi-plugin-elasticsearch'].services.helper;
         const recs = await scheduleIndexingService.getItemsPendingToBeIndexed();
         const fullSiteIndexing = recs.filter(r => r.full_site_indexing === true).length > 0
         if (fullSiteIndexing)
