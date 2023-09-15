@@ -15,19 +15,19 @@ export const SubNavigation = ({activeUrl}) => {
     id: 1,
     label : 'Setup Information',
     icon : Connector,
-    to : '/plugins/strapi-plugin-elasticsearch/home',
+    to : '/plugins/@geeky-biz/strapi-plugin-elasticsearch/home',
   },
   {
     id: 2,
     label : 'Configure Collections',
     icon : Connector,
-    to : '/plugins/strapi-plugin-elasticsearch/configure-collections',
+    to : '/plugins/@geeky-biz/strapi-plugin-elasticsearch/configure-collections',
   },
 {
   id: 3,
   label : 'Indexing Run Logs',
   icon : Connector,
-  to : '/plugins/strapi-plugin-elasticsearch/view-indexing-logs',
+  to : '/plugins/@geeky-biz/strapi-plugin-elasticsearch/view-indexing-logs',
 }];
   return (<Box style={{
         height: '100vh'
