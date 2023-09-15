@@ -4,8 +4,16 @@ A plugin to enable integrating Elasticsearch with Strapi CMS.
 
 ## Installation
 
+via npm:
+
 ```
 npm i @geeky-biz/strapi-plugin-elasticsearch
+```
+
+via yarn:
+
+```
+yarn add @geeky-biz/strapi-plugin-elasticsearch
 ```
 
 ## Plugin Configuration
