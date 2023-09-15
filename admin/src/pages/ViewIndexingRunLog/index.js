@@ -58,13 +58,13 @@ const formattedDate = (dateString) => {
 }
 
 const ViewIndexingRunLog = () => {
-  const [logTable, setLogTable] = useState([]);
+  const [logTable, setLogTable] = useState(null);
   useEffect(() => {
     loadRecentIndexingRuns()
     .then(setLogTable)
     }, []);
   
-  if (logTable === null || logTable.length === 0)
+  if (logTable === null)
         return <LoadingIndicatorPage />
   else
     return (
@@ -76,6 +76,7 @@ const ViewIndexingRunLog = () => {
               </Box>
               {
                 logTable && logTable.length > 0 && (
+                  <>
                     <Table colCount={3} rowCount={logTable.length}>
                       <Thead>
                         <Tr>
@@ -110,11 +111,12 @@ const ViewIndexingRunLog = () => {
                       }
                       </Tbody>
                     </Table>
+                    <Box paddingTop={2} paddingBottom={2}>
+                      <Typography textColor="neutral600">This view lists the details of the 50 recent-most indexing runs.</Typography>
+                    </Box>
+                  </>
                 )
               }
-              <Box paddingTop={2} paddingBottom={2}>
-                <Typography textColor="neutral600">This view lists the details of the 50 recent-most indexing runs.</Typography>
-              </Box>
             </Box>    
         </Flex>
   );
