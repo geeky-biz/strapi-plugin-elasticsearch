@@ -3,8 +3,8 @@
 
 
 module.exports = ({ strapi }) => {
-    const indexer = strapi.plugins['strapi-plugin-elasticsearch'].services.indexer;
-    const scheduleIndexingService = strapi.plugins['strapi-plugin-elasticsearch'].services.scheduleIndexing;
+    const indexer = strapi.plugins['elasticsearch'].services.indexer;
+    const scheduleIndexingService = strapi.plugins['elasticsearch'].services.scheduleIndexing;
     const rebuildIndex = async (ctx) => {
         return await indexer.rebuildIndex();
     }

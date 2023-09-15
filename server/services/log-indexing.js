@@ -1,6 +1,6 @@
 module.exports = ({ strapi }) => ({
     async recordIndexingPass(message) {
-        const entry = await strapi.entityService.create('plugin::strapi-plugin-elasticsearch.indexing-log', {
+        const entry = await strapi.entityService.create('plugin::elasticsearch.indexing-log', {
             data : {
                 status: 'pass',
                 details: message
@@ -8,7 +8,7 @@ module.exports = ({ strapi }) => ({
         });
     },
     async recordIndexingFail(message) {
-        const entry = await strapi.entityService.create('plugin::strapi-plugin-elasticsearch.indexing-log', {
+        const entry = await strapi.entityService.create('plugin::elasticsearch.indexing-log', {
             data : {
                 status: 'fail',
                 details: String(message)
@@ -16,7 +16,7 @@ module.exports = ({ strapi }) => ({
         });
     },
     async fetchIndexingLogs(count = 50) {
-        const records = await strapi.entityService.findMany('plugin::strapi-plugin-elasticsearch.indexing-log', {
+        const records = await strapi.entityService.findMany('plugin::elasticsearch.indexing-log', {
             sort: { createdAt: 'DESC' },
             start: 0,
             limit: count

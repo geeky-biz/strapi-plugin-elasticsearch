@@ -8,7 +8,7 @@ const getPluginStore = () => {
     return strapi.store({
       environment: '',
       type: 'plugin',
-      name: 'strapi-plugin-elasticsearch',
+      name: 'elasticsearch',
     });
   }
 
@@ -178,10 +178,9 @@ function extractSubfieldData({config, data }) {
 
 module.exports = ({ strapi }) => ({
     async getElasticsearchInfo() {
-        const configureService = strapi.plugins['strapi-plugin-elasticsearch'].services.configureIndexing;
-        const esInterface = strapi.plugins['strapi-plugin-elasticsearch'].services.esInterface;
-        const pluginConfigObj = await strapi.config.get('plugin.elasticsearch');
-        const pluginConfig = Object.keys(pluginConfigObj).includes('config') ? pluginConfigObj['config'] : {}
+        const configureService = strapi.plugins['elasticsearch'].services.configureIndexing;
+        const esInterface = strapi.plugins['elasticsearch'].services.esInterface;
+        const pluginConfig = await strapi.config.get('plugin.elasticsearch');
       
         const connected = pluginConfig.searchConnector && pluginConfig.searchConnector.host
          ? await esInterface.checkESConnection() : false;

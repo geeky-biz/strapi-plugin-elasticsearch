@@ -3,7 +3,7 @@
 
 
 module.exports = ({ strapi }) => {
-    const helperService = strapi.plugins['strapi-plugin-elasticsearch'].services.helper;
+    const helperService = strapi.plugins['elasticsearch'].services.helper;
     const getElasticsearchInfo = async (ctx) => {
         return helperService.getElasticsearchInfo();
     }

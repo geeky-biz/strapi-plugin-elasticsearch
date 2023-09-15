@@ -9,25 +9,26 @@ import {
   SubNavLink,
 } from '@strapi/design-system/v2';
 import { NavLink } from 'react-router-dom';
+import pluginId from "../../pluginId";
 
 export const SubNavigation = ({activeUrl}) => {
   const links = [ {
     id: 1,
     label : 'Setup Information',
     icon : Connector,
-    to : '/plugins/@geeky-biz/strapi-plugin-elasticsearch/home',
+    to : `/plugins/${pluginId}/home`,
   },
   {
     id: 2,
     label : 'Configure Collections',
     icon : Connector,
-    to : '/plugins/@geeky-biz/strapi-plugin-elasticsearch/configure-collections',
+    to : `/plugins/${pluginId}/configure-collections`,
   },
 {
   id: 3,
   label : 'Indexing Run Logs',
   icon : Connector,
-  to : '/plugins/@geeky-biz/strapi-plugin-elasticsearch/view-indexing-logs',
+  to : `/plugins/${pluginId}/view-indexing-logs`,
 }];
   return (<Box style={{
         height: '100vh'

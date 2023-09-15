@@ -4,7 +4,7 @@ const getPluginStore = () => {
   return strapi.store({
     environment: '',
     type: 'plugin',
-    name: 'strapi-plugin-elasticsearch',
+    name: 'elasticsearch',
   });
 }
 

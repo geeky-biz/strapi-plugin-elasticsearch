@@ -184,7 +184,7 @@ const ConfigureCollection = () => {
         <SubNavigation />
         <Box padding={8} background="neutral100" width="100%">
                 <Box paddingBottom={4}>
-                    <Link startIcon={<ArrowLeft />} to="/plugins/strapi-plugin-elasticsearch/configure-collections/">
+                    <Link startIcon={<ArrowLeft />} to={`/plugins/${pluginId}/configure-collections/`}>
                         Back
                     </Link>
                 </Box>

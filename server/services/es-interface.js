@@ -85,9 +85,7 @@ module.exports = ({ strapi }) => ({
     },
     async attachAliasToIndex(indexName) {
       try{
-        const pluginConfigObj = await strapi.config.get('plugin.elasticsearch');
-        if (pluginConfigObj && pluginConfigObj.enabled) {
-          const pluginConfig = Object.keys(pluginConfigObj).includes('config') ? pluginConfigObj['config'] : {}      
+          const pluginConfig = await strapi.config.get('plugin.elasticsearch');
           const aliasName = pluginConfig.indexAliasName;
           const aliasExists = await client.indices.existsAlias({name: aliasName});
           if (aliasExists)
@@ -100,9 +98,6 @@ module.exports = ({ strapi }) => ({
             await this.createIndex(indexName);
           console.log('strapi-plugin-elasticsearch : Attaching the alias ', aliasName, ' to index : ', indexName);
           await client.indices.putAlias({index: indexName, name: aliasName})
-        }
-        else
-          console.log('strapi-plugin-elasticsearch : Plugin configuration missing / not enabled.')
       }
       catch(err)
       {
@@ -150,19 +145,11 @@ module.exports = ({ strapi }) => ({
       }
     },
     async indexData({itemId, itemData}) {
-      const pluginConfigObj = await strapi.config.get('plugin.elasticsearch');
-      if (pluginConfigObj && pluginConfigObj.enabled) {      
-        const pluginConfig = Object.keys(pluginConfigObj).includes('config') ? pluginConfigObj['config'] : {}    
+        const pluginConfig = await strapi.config.get('plugin.elasticsearch');
         return await this.indexDataToSpecificIndex({itemId, itemData}, pluginConfig.indexAliasName);
-      }
-      else
-        console.log('strapi-plugin-elasticsearch : Plugin configuration missing / not enabled.')
     },
     async removeItemFromIndex({itemId}) {
-      const pluginConfigObj = await strapi.config.get('plugin.elasticsearch');
-      if (pluginConfigObj && pluginConfigObj.enabled) {
-        const pluginConfig = Object.keys(pluginConfigObj).includes('config') ? pluginConfigObj['config'] : {}
-      
+        const pluginConfig = await strapi.config.get('plugin.elasticsearch');      
         try
         {
           await client.delete({
@@ -180,25 +167,16 @@ module.exports = ({ strapi }) => ({
             throw err;
           }
         }    
-      }
-      else
-        console.error('strapi-plugin-elasticsearch : Plugin configuration missing / not enabled.')  
     },
     async searchData(searchQuery){
       try
       {
-        const pluginConfigObj = await strapi.config.get('plugin.elasticsearch');
-        if (pluginConfigObj && pluginConfigObj.enabled) {
-          const pluginConfig = Object.keys(pluginConfigObj).includes('config') ? pluginConfigObj['config'] : {}
-        
+          const pluginConfig = await strapi.config.get('plugin.elasticsearch');
           const result= await client.search({
             index: pluginConfig.indexAliasName,
             ...searchQuery
           });
           return result;
-        }
-        else
-          console.error('strapi-plugin-elasticsearch : Plugin configuration missing / not enabled.')  
       }
       catch(err)
       {

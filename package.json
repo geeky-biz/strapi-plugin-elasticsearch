@@ -4,7 +4,7 @@
   "description": "A Strapi plugin to enable using Elasticsearch with Strapi CMS.",
   "homepage": "https://github.com/geeky-biz/strapi-plugin-elasticsearch",
   "strapi": {
-    "name": "strapi-plugin-elasticsearch",
+    "name": "elasticsearch",
     "description": "A plugin to enable using Elasticsearch with Strapi CMS.",
     "kind": "plugin",
     "displayName": "Strapi <-> Elasticsearch"

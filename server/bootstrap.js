@@ -1,15 +1,12 @@
 'use strict';
 
 module.exports = async ({ strapi }) => {
-  const pluginConfigObj = await strapi.config.get('plugin.elasticsearch');
-  if (pluginConfigObj && pluginConfigObj.enabled) 
-  {
-    const pluginConfig = Object.keys(pluginConfigObj).includes('config') ? pluginConfigObj['config'] : {}
-    const configureIndexingService = strapi.plugins['strapi-plugin-elasticsearch'].services.configureIndexing;
-    const scheduleIndexingService = strapi.plugins['strapi-plugin-elasticsearch'].services.scheduleIndexing;
-    const esInterface = strapi.plugins['strapi-plugin-elasticsearch'].services.esInterface;
-    const indexer = strapi.plugins['strapi-plugin-elasticsearch'].services.indexer;
-    const helper = strapi.plugins['strapi-plugin-elasticsearch'].services.helper; 
+    const pluginConfig = await strapi.config.get('plugin.elasticsearch');
+    const configureIndexingService = strapi.plugins['elasticsearch'].services.configureIndexing;
+    const scheduleIndexingService = strapi.plugins['elasticsearch'].services.scheduleIndexing;
+    const esInterface = strapi.plugins['elasticsearch'].services.esInterface;
+    const indexer = strapi.plugins['elasticsearch'].services.indexer;
+    const helper = strapi.plugins['elasticsearch'].services.helper; 
     try
     {
       await configureIndexingService.initializeStrapiElasticsearch();
@@ -142,6 +139,4 @@ module.exports = async ({ strapi }) => {
       console.error('An error was encountered while initializing the strapi-plugin-elasticsearch plugin.')
       console.error(err);
     }  
-    
-  }
 };

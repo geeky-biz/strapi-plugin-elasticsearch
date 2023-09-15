@@ -3,7 +3,7 @@
 const qs = require('qs');
 
 module.exports = ({ strapi }) => {
-  const esInterface = strapi.plugins['strapi-plugin-elasticsearch'].services.esInterface;
+  const esInterface = strapi.plugins['elasticsearch'].services.esInterface;
   const search = async (ctx) => {
     try {
         if (ctx.query.query)
