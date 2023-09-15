@@ -209,7 +209,7 @@ const Configure = () => {
                               )}
                             </Td>    
                             <Td>
-                              <IconButton onClick={() => history.push(`/plugins/strapi-plugin-elasticsearch/configure-collections/${collection.collectionName}`)} label="Edit collection configuration" noBorder icon={<Pencil />} />  
+                              <IconButton onClick={() => history.push(`/plugins/${pluginId}/configure-collections/${collection.collectionName}`)} label="Edit collection configuration" noBorder icon={<Pencil />} />  
                               <IconButton onClick={() => scheduleCollectionIndexing(collection.collectionName)} label="Schedule indexing for all items in this collection" noBorder icon={<Server />} />  
                             </Td>                  
                           </Tr>
