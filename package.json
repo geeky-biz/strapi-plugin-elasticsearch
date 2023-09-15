@@ -1,6 +1,6 @@
 {
   "name": "@geeky-biz/strapi-plugin-elasticsearch",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "A Strapi plugin to enable using Elasticsearch with Strapi CMS.",
   "homepage": "https://github.com/geeky-biz/strapi-plugin-elasticsearch",
   "strapi": {
