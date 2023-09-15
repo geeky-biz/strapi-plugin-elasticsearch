@@ -63,16 +63,16 @@ module.exports = {
 ## Ensuring connection to Elasticsearch
 When connected to Elasticsearch, the `Connected` field within the `Setup Information` screen shall display `true`.
 
-<img width="1483" alt="image" src="https://github.com/geeky-biz/strapi-elasticsearch/assets/17068206/6643f00a-2cc5-4043-834b-abee1f7f5b43">
+![image](https://github.com/geeky-biz/strapi-plugin-elasticsearch/assets/17068206/a0fe0d6c-95e9-4c3c-95e1-46209db113c7)
 
 ## Configuring collections & attributes to be indexed
 The `Configure Collections` view displays the collections and the fields setup to be indexed.
 
-<img width="1474" alt="image" src="https://github.com/geeky-biz/strapi-elasticsearch/assets/17068206/14b135fc-822a-4700-bdea-396ef57a0701">
+![image](https://github.com/geeky-biz/strapi-plugin-elasticsearch/assets/17068206/13ad3a24-02a6-4c86-8da2-e015ba9c18ea)
 
 From this view, individual collection can be selected to modify configuration:
 
-<img width="1483" alt="image" src="https://github.com/geeky-biz/strapi-elasticsearch/assets/17068206/c42c95b0-bcef-4a14-beae-9cbec37431c1">
+![image](https://github.com/geeky-biz/strapi-plugin-elasticsearch/assets/17068206/bdc1d674-a74f-4534-9b48-ad0e0eebaeea)
 
 ## Configuring indexing for dynamic zone or component attributes
 To enable indexing content for attributes of type `component` or `dynamiczone`, additional information needs to be provided via JSON in the following format:
@@ -109,8 +109,7 @@ And, if we seek to index the contents of the `meta_description` field belonging 
       ]
 }
 ```
-
-<img width="898" alt="image" src="https://github.com/geeky-biz/strapi-elasticsearch/assets/17068206/86589da7-ce8e-49a3-a351-a7259dfb2908">
+![image](https://github.com/geeky-biz/strapi-plugin-elasticsearch/assets/17068206/df1f7dba-2aa1-410e-a567-1de73156a020)
 
 ### Example 2:
 If we have an attribute called `sections` of type `dynamiczone` within our collection `schema.json`:
@@ -167,7 +166,7 @@ Note: Indexing of `relations` attributes isn't yet supported.
 ## Exporting and Importing indexing configuration
 To enable backing up the indexing configuration or transferring it between various environments, these can be Exported / Imported from the `Configure Collections` view.
 
-<img width="1492" alt="image" src="https://github.com/geeky-biz/strapi-elasticsearch/assets/17068206/1a93c35a-47a1-442b-893d-bec22ab468e9">
+![image](https://github.com/geeky-biz/strapi-plugin-elasticsearch/assets/17068206/6e099392-499e-4101-8f51-85b7eff8aa38)
 
 ## Scheduling Indexing
 Once the collection attributes are configured for indexing, any changes to the respective collections & attributes is marked for indexing. The cron job (configured via `indexingCronSchedule`) makes actual indexing requests to the connected Elasticsearch instance. 
@@ -175,11 +174,11 @@ Once the collection attributes are configured for indexing, any changes to the r
 - `Trigger Indexing` triggers the cron job immediately to perform the pending indexing tasks without waiting for the next scheduled run.
 - `Rebuild Indexing` completely rebuilds the index. It may be used if the Elasticsearch appears to be out of sync from the data within Strapi.
 
-<img width="1495" alt="image" src="https://github.com/geeky-biz/strapi-elasticsearch/assets/17068206/987279fd-b3bb-494c-9746-b2339454d214">
+![image](https://github.com/geeky-biz/strapi-plugin-elasticsearch/assets/17068206/71df02a9-8513-4a91-8e23-2b5f34495c20)
 
 Whenever a collection is configured for indexing, it may already have data that needs to be indexed. To facilitate indexing of the past data, a collection can be scheduled for indexing in the next cron run from the `Configure Collections` view:
 
-<img width="1485" alt="image" src="https://github.com/geeky-biz/strapi-elasticsearch/assets/17068206/8d51d40c-78ba-4613-a602-0676607bdb6f">
+![image](https://github.com/geeky-biz/strapi-plugin-elasticsearch/assets/17068206/7f37453a-dc87-406a-8de0-0391018b7fb5)
 
 ## Searching
 You may directly use the Elasticsearch search API or you may use the Search API exposed by the plugin (at `/api/strapi-plugin-elasticsearch/search`). The plugin search API is just a wrapper around the Elasticsearch search API that passes the query parameter to the Elasticsearch search API and returns the results coming from Elasticsearch:
