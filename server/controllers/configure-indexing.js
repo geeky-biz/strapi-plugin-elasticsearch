@@ -12,7 +12,6 @@ module.exports = ({ strapi }) => {
   const saveCollectionConfig = async (ctx) => {
     const { body } = ctx.request;
     try {
-      console.log(body);
       const updatedConfig = await configureIndexingService.setContentConfig({collection: ctx.params.collectionname, config : body.data});
       return updatedConfig;
     } catch (err) {

@@ -55,7 +55,6 @@ const loadContentConfig = () => {
 
 const scheduleCollectionIndexing = (collectionName) => {
   return axiosInstance.get(apiRequestCollectionIndexing(collectionName))
-    .then(console.log);
 }
 
 const Configure = () => {

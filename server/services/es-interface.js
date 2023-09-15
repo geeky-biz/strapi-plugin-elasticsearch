@@ -89,8 +89,6 @@ module.exports = ({ strapi }) => ({
         const pluginConfig = Object.keys(pluginConfigObj).includes('config') ? pluginConfigObj['config'] : {}      
         const aliasName = pluginConfig.indexAliasName;
         const aliasExists = await client.indices.existsAlias({name: aliasName});
-        console.log(aliasExists);
-        console.log(aliasName);
         if (aliasExists)
         {
           console.log('strapi-plugin-elasticsearch : Alias with this name already exists, removing it.');

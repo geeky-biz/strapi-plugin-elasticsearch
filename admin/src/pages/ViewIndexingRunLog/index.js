@@ -19,7 +19,6 @@ const loadRecentIndexingRuns = () => {
   return axiosInstance.get(apiFetchRecentIndexingRunLog)
       .then((resp) => resp.data)
       .then((data) => {
-        console.log(data);
         return data;
       });
 } 
