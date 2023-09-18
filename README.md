@@ -181,17 +181,19 @@ Whenever a collection is configured for indexing, it may already have data that 
 ![image](https://github.com/geeky-biz/strapi-plugin-elasticsearch/assets/17068206/7f37453a-dc87-406a-8de0-0391018b7fb5)
 
 ## Searching
-You may directly use the Elasticsearch search API or you may use the Search API exposed by the plugin (at `/api/strapi-plugin-elasticsearch/search`). The plugin search API is just a wrapper around the Elasticsearch search API that passes the query parameter to the Elasticsearch search API and returns the results coming from Elasticsearch:
+You may directly use the Elasticsearch search API or you may use the Search API exposed by the plugin (at `/api/elasticsearch/search`). The plugin search API is just a wrapper around the Elasticsearch search API that passes the query parameter to the Elasticsearch search API and returns the results coming from Elasticsearch:
 
 For example, the below API call would result into the Elasticsearch search API being triggered with the query 
 ```
-`/api/strapi-plugin-elasticsearch/search?query=query%5Bbool%5D%5Bshould%5D%5B0%5D%5Bmatch%5D%5Binformation%5D=atlanta`
+`/api/elasticsearch/search?query=query%5Bbool%5D%5Bshould%5D%5B0%5D%5Bmatch%5D%5Bcity%5D=atlanta`
 ```
 would result into the Elasticsearch search API being triggered with query
 ```
-query[bool][should][0][match][information]=atlanta
+query[bool][should][0][match][city]=atlanta
 ```
 The plugin's API would return the response from the Elasticsearch search API.
+
+Note: To use the `search` API (at `/api/elasticsearch/search`), you will have to provide access via `Settings` -> `Users & Permissions Plugin` -> `Roles` -> (Select adequate role) -> `Elasticsearch` -> `search`.
 
 ## Bugs
 For any bugs, please create an issue [here](https://github.com/geeky-biz/strapi-plugin-elasticsearch/issues).
