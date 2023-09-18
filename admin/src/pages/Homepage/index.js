@@ -106,8 +106,25 @@ const Homepage = () => {
                                 <Td>
                                     <Box padding={2}>
                                     <Grid>
-                                        <GridItem padding={1}>
-                                            <Typography textColor="neutral600">{String(setupInfo[k])}</Typography>
+                                        <GridItem padding={2}>
+                                            { 
+                                                k === 'connected' && setupInfo[k] === true && 
+                                                (
+                                                    <Typography fontWeight="bold" textColor="success500">Yes</Typography>
+                                                )
+                                            }
+                                            { 
+                                                k === 'connected' && setupInfo[k] === false && 
+                                                (
+                                                    <Typography fontWeight="bold" textColor="danger500">No</Typography>
+                                                )
+                                            }
+                                            {
+                                                k !== 'connected' && 
+                                                (
+                                                    <Typography textColor="neutral600">{String(setupInfo[k])}</Typography>
+                                                )
+                                            }
                                         </GridItem>
                                         <GridItem padding={1}>
                                             {
