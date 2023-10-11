@@ -195,6 +195,68 @@ The plugin's API would return the response from the Elasticsearch search API.
 
 Note: To use the `search` API (at `/api/elasticsearch/search`), you will have to provide access via `Settings` -> `Users & Permissions Plugin` -> `Roles` -> (Select adequate role) -> `Elasticsearch` -> `search`.
 
+### Extending Search API
+The recommended was to enhance the Search API is to write your own route and controller. Below is an example of how this can be achieved (this example adds pagination capability to the search API):
+
+- Within your setup, create `src/extensions/elasticsearch/strapi-server.js` with the following contents:
+
+```
+const { Client } = require('@elastic/elasticsearch')
+const qs = require('qs');
+
+let client = null;
+
+module.exports = (plugin) => {
+
+    client = new Client({
+        node: plugin.config.searchConnector.host,
+        auth: {
+          username: plugin.config.searchConnector.username,
+          password: plugin.config.searchConnector.password
+        },
+        tls: {
+          ca: plugin.config.searchConnector.certificate,
+          rejectUnauthorized: false
+        }
+    });
+
+    plugin.controllers['performSearch'].enhancedSearch = async (ctx) => {
+            try
+            {
+                const params = qs.parse(ctx.request.query)
+                const query = params.search;
+                const pagesize = params.pagesize;
+                const from = params.from;
+                const result= await client.search({
+                    index: plugin.config.indexAliasName,
+                    query: { "bool" : { "should" : [ { "match": { "content": "dummy"} } ] } },
+                    size: pagesize,
+                    from: from 
+                });
+                return result;
+            }
+            catch(err)
+            {
+                console.log('Search : elasticClient.enhancedSearch : Error encountered while making a search request to ElasticSearch.')
+                throw err;
+            }
+    }
+
+    plugin.routes['search'].routes.push({
+        method: 'GET',
+        path: '/enhanced-search',
+        handler: 'performSearch.enhancedSearch',
+      });
+  
+    
+    return plugin;
+};
+
+```
+
+- This will create a new route `/api/elasticsearch/enhanced-search` being served by the function defined above.
+- You can add / modify the routes and controllers as necessary.
+
 ## Bugs
 For any bugs, please create an issue [here](https://github.com/geeky-biz/strapi-plugin-elasticsearch/issues).
 
