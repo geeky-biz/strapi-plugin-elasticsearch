@@ -2,10 +2,10 @@
 
 const qs = require('qs');
 
-module.exports = ({ strapi }) => {
-  const esInterface = strapi.plugins['elasticsearch'].services.esInterface;
-  const search = async (ctx) => {
+module.exports =  {
+  search : async (ctx) => {
     try {
+        const esInterface = strapi.plugins['elasticsearch'].services.esInterface;
         if (ctx.query.query)
         {
           const query = qs.parse(ctx.query.query);
@@ -27,9 +27,5 @@ module.exports = ({ strapi }) => {
         console.log('An error was encountered while processing the search request.')
         console.log(err);
       }
-  }
-
-  return {
-    search
-  };  
+  }  
 };
