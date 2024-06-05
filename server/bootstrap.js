@@ -6,11 +6,11 @@ module.exports = async ({ strapi }) => {
     const scheduleIndexingService = strapi.plugins['elasticsearch'].services.scheduleIndexing;
     const esInterface = strapi.plugins['elasticsearch'].services.esInterface;
     const indexer = strapi.plugins['elasticsearch'].services.indexer;
-    const helper = strapi.plugins['elasticsearch'].services.helper; 
+    const helper = strapi.plugins['elasticsearch'].services.helper;
     try
     {
       await configureIndexingService.initializeStrapiElasticsearch();
-    
+
       if (!Object.keys(pluginConfig).includes('indexingCronSchedule'))
         console.warn("The plugin strapi-plugin-elasticsearch is enabled but the indexingCronSchedule is not configured.");
       else if (!Object.keys(pluginConfig).includes('searchConnector'))
@@ -18,7 +18,7 @@ module.exports = async ({ strapi }) => {
       else
       {
         const connector = pluginConfig['searchConnector'];
-        await esInterface.initializeSearchEngine({host : connector.host, uname: connector.username, 
+        await esInterface.initializeSearchEngine({host : connector.host, uname: connector.username,
               password: connector.password, cert: connector.certificate});
         strapi.cron.add({
           elasticsearchIndexing: {
@@ -27,19 +27,20 @@ module.exports = async ({ strapi }) => {
             },
             options: {
               rule: pluginConfig['indexingCronSchedule'],
+              tz:   pluginConfig['tz']
             },
           },
-        });   
-        
+        });
+
         if (await esInterface.checkESConnection())
         {
           //Attach the alias to the current index:
           const idxName = await helper.getCurrentIndexName();
           await esInterface.attachAliasToIndex(idxName);
         }
-          
+
       }
-  
+
       strapi.db.lifecycles.subscribe(async (event) => {
         if (event.action === 'afterCreate' || event.action === 'afterUpdate') {
           if (strapi.elasticsearch.collections.includes(event.model.uid))
@@ -50,7 +51,7 @@ module.exports = async ({ strapi }) => {
               await scheduleIndexingService.addItemToIndex({
                 collectionUid: event.model.uid,
                 recordId: event.result.id
-              });  
+              });
             }
             else if (event.model.attributes.publishedAt)
             {
@@ -59,7 +60,7 @@ module.exports = async ({ strapi }) => {
                 await scheduleIndexingService.addItemToIndex({
                   collectionUid: event.model.uid,
                   recordId: event.result.id
-                });    
+                });
               }
               else
               {
@@ -67,7 +68,7 @@ module.exports = async ({ strapi }) => {
                 await scheduleIndexingService.removeItemFromIndex({
                   collectionUid: event.model.uid,
                   recordId: event.result.id
-                });    
+                });
               }
             }
           }
@@ -80,7 +81,7 @@ module.exports = async ({ strapi }) => {
             {
               const updatedItemIds = event.params.where.id['$in']
               //bulk unpublish
-              if (typeof event.params.data.publishedAt === "undefined" || 
+              if (typeof event.params.data.publishedAt === "undefined" ||
                 event.params.data.publishedAt === null)
                 {
                   for (let k = 0; k< updatedItemIds.length; k++)
@@ -88,8 +89,8 @@ module.exports = async ({ strapi }) => {
                     await scheduleIndexingService.removeItemFromIndex({
                       collectionUid: event.model.uid,
                       recordId: updatedItemIds[k]
-                    });            
-                  }    
+                    });
+                  }
                 }
               else
               {
@@ -98,19 +99,19 @@ module.exports = async ({ strapi }) => {
                   await scheduleIndexingService.addItemToIndex({
                     collectionUid: event.model.uid,
                     recordId: updatedItemIds[k]
-                  });   
+                  });
                 }
               }
             }
           }
-        }    
+        }
         if (event.action === 'afterDelete') {
           if (strapi.elasticsearch.collections.includes(event.model.uid))
           {
             await scheduleIndexingService.removeItemFromIndex({
               collectionUid: event.model.uid,
               recordId: event.result.id
-            });  
+            });
           }
         }
         if (event.action === 'afterDeleteMany') {
@@ -118,7 +119,7 @@ module.exports = async ({ strapi }) => {
           {
             if (Object.keys(event.params.where).includes('$and') &&
             Array.isArray(event.params.where['$and']) &&
-            Object.keys(event.params.where['$and'][0]).includes('id') && 
+            Object.keys(event.params.where['$and'][0]).includes('id') &&
             Object.keys(event.params.where['$and'][0]['id']).includes('$in'))
             {
               const deletedItemIds = event.params.where['$and'][0]['id']['$in']
@@ -127,16 +128,16 @@ module.exports = async ({ strapi }) => {
                 await scheduleIndexingService.removeItemFromIndex({
                   collectionUid: event.model.uid,
                   recordId: deletedItemIds[k]
-                });            
+                });
               }
-            }        
+            }
           }
         }
-      });   
-      configureIndexingService.markInitialized(); 
+      });
+      configureIndexingService.markInitialized();
     }
     catch(err) {
       console.error('An error was encountered while initializing the strapi-plugin-elasticsearch plugin.')
       console.error(err);
-    }  
+    }
 };
