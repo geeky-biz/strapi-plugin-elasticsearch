@@ -1,4 +1,24 @@
 {
+  "name": "@geeky-biz/strapi-plugin-elasticsearch",
+  "description": "A Strapi plugin to enable using Elasticsearch with Strapi CMS.",
+  "license": "MIT",
+  "author": "Punit Sethi <punit@tezify.com>",
+  "homepage": "https://github.com/geeky-biz/strapi-plugin-elasticsearch",
+  "repository": {
+       "type": "git",
+       "url": "git://github.com/geeky-biz/strapi-plugin-elasticsearch.git"
+  },  
+  "maintainers": [
+     {
+       "name": "Punit Sethi",
+       "email": "punit@tezify.com",
+       "url": "https://punits.dev"  
+     }
+  ],
+  "engines": {
+     "node": ">=18.0.0 <=22.x.x",
+     "npm": ">=6.0.0"
+  },
   "version": "0.0.9",
   "keywords": [],
   "type": "commonjs",
@@ -56,9 +76,5 @@
     "description": "A plugin to enable using Elasticsearch with Strapi CMS.",
     "kind": "plugin",
     "displayName": "Strapi <-> Elasticsearch"
-  },
-  "name": "strapi-plugin-elasticsearch",
-  "description": "",
-  "license": "MIT",
-  "author": "Punit Sethi <punitsethi@gmail.com>"
+  }
 }
