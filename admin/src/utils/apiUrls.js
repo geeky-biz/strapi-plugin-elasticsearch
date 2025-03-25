@@ -1,4 +1,3 @@
-import { collectionName } from "../../../server/content-types/tasks";
 import pluginId from "../pluginId";
 export const apiGetContentConfig = `/${pluginId}/content-config/`
 export const apiGetCollectionConfig = (collectionName) => `/${pluginId}/collection-config/${collectionName}`
