@@ -1,40 +1,64 @@
 {
-  "name": "@geeky-biz/strapi-plugin-elasticsearch",
-  "version": "0.0.8",
-  "description": "A Strapi plugin to enable using Elasticsearch with Strapi CMS.",
-  "homepage": "https://github.com/geeky-biz/strapi-plugin-elasticsearch",
+  "version": "0.0.0",
+  "keywords": [],
+  "type": "commonjs",
+  "exports": {
+    "./package.json": "./package.json",
+    "./strapi-admin": {
+      "source": "./admin/src/index.js",
+      "import": "./dist/admin/index.mjs",
+      "require": "./dist/admin/index.js",
+      "default": "./dist/admin/index.js"
+    },
+    "./strapi-server": {
+      "source": "./server/src/index.js",
+      "import": "./dist/server/index.mjs",
+      "require": "./dist/server/index.js",
+      "default": "./dist/server/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "strapi-plugin build",
+    "watch": "strapi-plugin watch",
+    "watch:link": "strapi-plugin watch:link",
+    "verify": "strapi-plugin verify"
+  },
+  "dependencies": {
+    "@elastic/elasticsearch": "^8.17.1",
+    "@radix-ui/react-tooltip": "^1.1.8",
+    "@strapi/design-system": "^2.0.0-rc.18",
+    "@strapi/icons": "^2.0.0-rc.18",
+    "markdown-to-txt": "^2.0.1",
+    "react-intl": "^7.1.9"
+  },
+  "devDependencies": {
+    "@strapi/sdk-plugin": "^5.3.2",
+    "@strapi/strapi": "^5.11.3",
+    "prettier": "^3.5.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.30.0",
+    "styled-components": "^6.1.16"
+  },
+  "peerDependencies": {
+    "@strapi/sdk-plugin": "^5.3.2",
+    "@strapi/strapi": "^5.11.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.30.0",
+    "styled-components": "^6.1.16"
+  },
   "strapi": {
     "name": "elasticsearch",
     "description": "A plugin to enable using Elasticsearch with Strapi CMS.",
     "kind": "plugin",
     "displayName": "Strapi <-> Elasticsearch"
   },
-  "repository": {
-      "type": "git",
-      "url": "git://github.com/geeky-biz/strapi-plugin-elasticsearch.git"
-  },
-  "author": {
-    "name": "Punit Sethi",
-    "email": "punit@tezify.com",
-    "url": "https://punits.dev"
-  },
-  "dependencies": {
-    "@elastic/elasticsearch": "^8.9.0",
-    "markdown-to-txt": "^2.0.1"
-  },
-  "peerDependencies": {
-    "@strapi/strapi": "^4.0.0"
-  },
-  "maintainers": [
-    {
-      "name": "Punit Sethi",
-      "email": "punit@tezify.com",
-      "url": "https://punits.dev"  
-    }
-  ],
-  "engines": {
-    "node": ">=16.0.0 <=20.x.x",
-    "npm": ">=6.0.0"
-  },
-  "license": "MIT"
+  "name": "strapi-plugin-elasticsearch",
+  "description": "",
+  "license": "MIT",
+  "author": "Punit Sethi <punitsethi@gmail.com>"
 }

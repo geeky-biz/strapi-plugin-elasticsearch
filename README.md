@@ -16,6 +16,10 @@ via yarn:
 yarn add @geeky-biz/strapi-plugin-elasticsearch
 ```
 
+## Supported Strapi version
+
+The latest version of this plugin works for Strapi v5. For Strapi v4, please install the version 0.0.8 of this plugin.
+
 ## Plugin Configuration
 
 Within your Strapi project's `config/plugin.js`, enable the plugin and provide the configuration details:
