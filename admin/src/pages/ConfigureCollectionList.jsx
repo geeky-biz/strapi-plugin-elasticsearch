@@ -5,6 +5,7 @@
  */
 
 import React, { useState } from 'react';
+import { Page } from '@strapi/admin/strapi-admin';
 import { useFetchClient } from '@strapi/admin/strapi-admin';
 import pluginId from '../pluginId';
 import  { SubNavigation } from '../components/SubNavigation';
@@ -73,7 +74,19 @@ const Configure = () => {
   } 
 
   const scheduleCollectionIndexing = (collectionName) => {
+    setIsInProgress(true);
     return get(apiRequestCollectionIndexing(collectionName))
+    .then(() => {
+      showMessage({variant: "success", title: "Success", text: `Collection ${collectionName} scheduled for indexing.`});
+    })
+    .catch((err) => {
+      showMessage({variant: "warning", title: "Error", text: "Scheduling collection indexing failed. An error was encountered."});
+      console.log(err);
+    })
+    .finally(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        setIsInProgress(false)
+    });
   }
 
   const performImport = () => {
@@ -156,7 +169,8 @@ const Configure = () => {
   else
   {
     return (
-      <>
+      <Page.Main>
+      <Page.Title>Configure Collections</Page.Title>
         <Flex alignItems="stretch" gap={4}>
           <SubNavigation activeUrl={`/plugins/${pluginId}/configure-collections`}/>
           <Box padding={8} background="neutral100">
@@ -286,7 +300,7 @@ const Configure = () => {
             )}
           </Box>
         </Flex>
-      </>
+      </Page.Main>
     );
   }
 };

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Page } from '@strapi/admin/strapi-admin';
 import { useFetchClient } from '@strapi/admin/strapi-admin';
 import { Alert } from '@strapi/design-system';
 import  { SubNavigation } from '../components/SubNavigation';
@@ -87,6 +88,8 @@ const Homepage = () => {
         return (<Loader />);
     else
         return (
+        <Page.Main>
+        <Page.Title>ElasticSearch Setup Information</Page.Title>
         <Flex alignItems="stretch" gap={4}>
         <SubNavigation activeUrl={`/plugins/${pluginId}/`} />
         <Box padding={8} background="neutral100" width="100%">
@@ -151,6 +154,12 @@ const Homepage = () => {
             }
             </tbody>
             </Table>
+            <Box marginTop={8} padding={4} background="neutral0">
+                <Typography>
+                    For bugs or feature requests related to this plugin, please email on punit@tezify.com 
+                    (or check <a href="https://punits.dev">https://punits.dev</a>)
+                </Typography>
+            </Box>
             </Grid.Item>
             <Grid.Item col={3} s={12} direction="column" alignItems="stretch">
             <Box background="white" paddingLeft={2} paddingRight={2} paddingTop={4} paddingBottom={4} >
@@ -172,7 +181,8 @@ const Homepage = () => {
         </Box>
         </Box>
         </Flex>
-        );
+    </Page.Main>
+    );
 };
 
 

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Page } from '@strapi/admin/strapi-admin';
 import { useFetchClient } from '@strapi/admin/strapi-admin';
 import  { SubNavigation } from '../components/SubNavigation';;
 import { Box, Flex } from '@strapi/design-system';
@@ -60,6 +61,8 @@ const ViewIndexingRunLog = () => {
         return <Loader />
   else
     return (
+      <Page.Main>
+        <Page.Title>Recent Indexing Run Logs</Page.Title>
         <Flex alignItems="stretch" gap={4}>
             <SubNavigation activeUrl={`/plugins/${pluginId}/view-indexing-logs`} />
             <Box padding={8} background="neutral100" width="100%">
@@ -111,6 +114,7 @@ const ViewIndexingRunLog = () => {
               }
             </Box>    
         </Flex>
+      </Page.Main>
   );
 };
 

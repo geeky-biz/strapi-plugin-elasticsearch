@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Page } from '@strapi/admin/strapi-admin';
 import { useFetchClient } from '@strapi/admin/strapi-admin';
 import { useParams } from 'react-router-dom';
 import  { SubNavigation } from '../components/SubNavigation';;
@@ -186,6 +187,8 @@ const ConfigureCollection = () => {
     return <Loader />;
   else
   return (
+    <Page.Main>
+        <Page.Title>Configure Collection {selectedCollection}</Page.Title>
     <Flex alignItems="stretch" gap={4}>
         <SubNavigation activeUrl={`/plugins/${pluginId}/configure-collections`}/>
         <Box padding={8} background="neutral100" width="100%">
@@ -229,6 +232,7 @@ const ConfigureCollection = () => {
                 }
         </Box>
     </Flex>
+    </Page.Main>
   );
 };
 
