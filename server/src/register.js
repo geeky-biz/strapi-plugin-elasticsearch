@@ -10,14 +10,12 @@ const register = ({ strapi }) => {
       if (context.contentType.options.draftAndPublish === true) {
         //publish, unpublish
         if (context.action === 'publish') {
-          console.log('Doing addItemToIndex');
           await scheduleIndexingService.addItemToIndex({
             collectionUid: context.uid,
             recordId: context.params.documentId
           });           
         }
         else if (context.action === 'unpublish') {
-          console.log('Doing removeItemFromIndex');
           await scheduleIndexingService.removeItemFromIndex({
             collectionUid: context.uid,
             recordId: context.params.documentId
@@ -26,7 +24,6 @@ const register = ({ strapi }) => {
       }
       else {
         if (['create', 'update'].includes(context.action)) {
-          console.log('Doing addItemToIndex');
           await scheduleIndexingService.addItemToIndex({
             collectionUid: context.uid,
             recordId: context.params.documentId
@@ -34,7 +31,6 @@ const register = ({ strapi }) => {
         }
       }
       if (context.action === 'delete') {
-        console.log('Doing removeItemFromIndex');
         await scheduleIndexingService.removeItemFromIndex({
           collectionUid: context.uid,
           recordId: context.params.documentId
