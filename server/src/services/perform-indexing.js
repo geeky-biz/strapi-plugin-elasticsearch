@@ -115,6 +115,7 @@ module.exports = ({ strapi }) => ({
         {
             try
             {
+                let fullCollectionIndexing = false;
                 for (let r=0; r< recs.length; r++)
                 {
                     const col = recs[r].collection_name;
@@ -136,25 +137,28 @@ module.exports = ({ strapi }) => ({
                                         collectionName: col, data: item, collectionConfig
                                 });
                                 await esInterface.indexData({itemId : indexItemId, itemData: dataToIndex});
-                                await scheduleIndexingService.markIndexingTaskComplete(recs[r].item_document_id);    
+                                await scheduleIndexingService.markIndexingTaskCompleteByItemDocumentId(recs[r].item_document_id);    
                             }
                             else
                             {
                                 const indexItemId = helper.getIndexItemId({collectionName: col, itemDocumentId: recs[r].item_document_id})
                                 await esInterface.removeItemFromIndex({itemId : indexItemId});
-                                await scheduleIndexingService.markIndexingTaskComplete(recs[r].item_document_id);    
+                                await scheduleIndexingService.markIndexingTaskCompleteByItemDocumentId(recs[r].item_document_id);    
                             }
                         }
                         else //index the entire collection
                         {
                             //PENDING : Index an entire collection
                             await this.indexCollection(col);
-                            await scheduleIndexingService.markIndexingTaskComplete(recs[r].item_document_id);                      
+                            await scheduleIndexingService.markIndexingTaskComplete(recs[r].documentId);                      
+                            await logIndexingService.recordIndexingPass('Indexing of collection ' + col + ' complete.');
+                            fullCollectionIndexing = true;
                         }
                     }
                     else
-                        await scheduleIndexingService.markIndexingTaskComplete(recs[r].item_document_id);
+                        await scheduleIndexingService.markIndexingTaskComplete(recs[r].documentId);
                 }
+                if (fullCollectionIndexing === false || (fullCollectionIndexing === true && recs.length > 1))
                 await logIndexingService.recordIndexingPass('Indexing of ' + String(recs.length) + ' records complete.');
             }
             catch(err)

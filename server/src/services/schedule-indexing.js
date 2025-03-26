@@ -53,6 +53,14 @@ module.exports = ({ strapi }) => ({
          return entries;     
     },
     async markIndexingTaskComplete (recId) {
+        await strapi.documents('plugin::elasticsearch.task').update({
+            documentId: recId,
+            data : {
+                'indexing_status' : 'done'
+            }
+        });
+    },
+    async markIndexingTaskCompleteByItemDocumentId (recId) {
         const itemsToUpdate = await strapi.documents('plugin::elasticsearch.task').findMany({
             filters: {
                 item_document_id : recId,
