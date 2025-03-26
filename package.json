@@ -19,7 +19,7 @@
      "node": ">=18.0.0 <=22.x.x",
      "npm": ">=6.0.0"
   },
-  "version": "0.0.9",
+  "version": "0.0.10",
   "keywords": [],
   "type": "commonjs",
   "exports": {
